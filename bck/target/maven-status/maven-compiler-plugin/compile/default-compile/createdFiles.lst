@@ -1,1 +1,4 @@
+com\example\Repository\CompanyRepository.class
+com\example\Model\Company.class
 com\example\App.class
+com\example\Controller\HomeController.class
