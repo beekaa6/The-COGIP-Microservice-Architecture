@@ -1,5 +1,6 @@
 package com.example;
 
+import java.util.List;
 import java.util.Scanner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -30,18 +31,24 @@ public class App implements CommandLineRunner{
         break;
       }
       if (input.equals("list")) {
-        System.out.println("List: "+getAllList());
+        for (CompanyDTO co : getAllList()) {
+          System.out.println(co);
+        }
       }
     }
   }
 
-  public String getAllList(){
-    ResponseEntity<String> response = restTemplate.exchange(
+  public List<CompanyDTO> getAllList(){
+    ResponseEntity<List<CompanyDTO>> response = restTemplate.exchange(
       url, 
       HttpMethod.GET,
       null,
-      new ParameterizedTypeReference<String>() {}
+      new ParameterizedTypeReference<List<CompanyDTO>>() {}
     );
     return response.getBody();
+  }
+
+  public void postList(){
+    CompanyDTO company = new CompanyDTO("bob", 12345);
   }
 }

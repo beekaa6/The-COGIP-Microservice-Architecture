@@ -1,25 +1,25 @@
-package com.example.model;
+package com.example;
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import org.springframework.stereotype.Component;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+@Component
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-@Entity
-public class Company {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CompanyDTO {
   private Integer id;
   @NonNull private String name;
   @NonNull private Integer vatNumber;
+
+  @Override
+  public String toString() {
+    return "Company [ID=" + id + ", Name=" + name + ", VAT=" + vatNumber + "]";
+  }
+
 }
