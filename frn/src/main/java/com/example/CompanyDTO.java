@@ -1,13 +1,11 @@
 package com.example;
 
-import org.springframework.stereotype.Component;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-@Component
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -21,5 +19,4 @@ public class CompanyDTO {
   public String toString() {
     return "Company [ID=" + id + ", Name=" + name + ", VAT=" + vatNumber + "]";
   }
-
 }
