@@ -22,14 +22,12 @@ public class CompanyService {
     return repo.findById(id);
   }
 
-  public void putCompany(Company company){
-    repo.save(company);
+  public void saveCompany(Company company){
+    if (company != null) {
+      repo.save(company);
+    }
   }
   
-  public void updateCompany(Company company){
-    repo.save(company);
-  }
-
   public void deleteCompanyById(int id){
     repo.deleteById(id);
   }

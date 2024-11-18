@@ -34,12 +34,12 @@ public class CompanyController {
 
   @PostMapping
   public void addToCompanies(@RequestBody Company company){
-    companyService.putCompany(company);
+    companyService.saveCompany(company);
   }
 
   @PutMapping
   public void updateCompanies(@RequestBody Company company){
-    companyService.updateCompany(company);
+    companyService.saveCompany(company);
   }
 
   @DeleteMapping("/{id}")
