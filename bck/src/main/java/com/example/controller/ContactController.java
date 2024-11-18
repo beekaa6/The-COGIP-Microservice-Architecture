@@ -2,14 +2,13 @@ package com.example.controller;
 
 import com.example.model.Contact;
 import com.example.service.ContactService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@Controller
-@RestController("/contact")
+@RestController
+@RequestMapping("/contact")
 public class ContactController {
     private final ContactService contactService;
     public ContactController(ContactService contactService) {

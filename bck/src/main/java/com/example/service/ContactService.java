@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ContactService {
-  private ContactRepository repo;
+  private final ContactRepository repo;
   public ContactService(ContactRepository repo) {
     this.repo = repo;
   }
