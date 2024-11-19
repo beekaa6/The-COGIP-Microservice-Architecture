@@ -30,6 +30,11 @@ public class ContactController {
         contactService.saveContact(contact);
     }
 
+    @PutMapping
+    public void updateContact(@RequestBody Contact contact){
+        contactService.saveContact(contact);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteContact(@PathVariable int id){
         contactService.deleteContactById(id);
