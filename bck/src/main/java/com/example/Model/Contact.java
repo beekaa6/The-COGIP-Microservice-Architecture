@@ -1,5 +1,7 @@
 package com.example.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +21,6 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Contact {
-  
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
@@ -31,7 +32,9 @@ public class Contact {
   private String phone;
   @NonNull
   private String email;
+  private String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm' - 'dd/MM/yy"));
   @ManyToOne
   @JoinColumn(name = "contact_company_id", referencedColumnName = "id")
   private Company contactCompany;
+
 }
