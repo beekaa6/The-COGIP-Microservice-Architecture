@@ -22,4 +22,16 @@ public class InvoiceService {
     return repo.findById(id);
   }
 
+  public void addNewInvoice(Invoice invoice){
+    repo.save(invoice);
+  }
+
+  public void updateNewInvoice(Invoice invoice){
+    repo.save(invoice);
+  }
+
+  public void deleteByIdInvoice(int id){
+    repo.deleteById(id);
+  }
+
 }
