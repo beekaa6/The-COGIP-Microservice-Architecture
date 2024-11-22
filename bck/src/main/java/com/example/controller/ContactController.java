@@ -25,17 +25,17 @@ public class ContactController {
         return  contactService.getContactById(id);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public void addContact(@RequestBody Contact contact){
         contactService.saveContact(contact);
     }
 
-    @PutMapping
+    @PutMapping("/update")
     public void updateContact(@RequestBody Contact contact){
         contactService.saveContact(contact);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteContact(@PathVariable int id){
         contactService.deleteContactById(id);
     }

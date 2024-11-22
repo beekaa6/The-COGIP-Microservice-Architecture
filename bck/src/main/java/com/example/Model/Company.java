@@ -2,7 +2,7 @@ package com.example.model;
 
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,16 +10,13 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
-@RequiredArgsConstructor
+
+@Data
 @NoArgsConstructor
-@Setter
-@Getter
 @Entity
 public class Company {
   @Id
@@ -31,9 +28,11 @@ public class Company {
   private String country;
   @NonNull 
   @Column(unique = true)
-  private Integer vat;
+  private String vat;
   @NonNull
   @Enumerated(EnumType.STRING)
   private CompanyType type;
-  private String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm' - 'dd/MM/yy"));
+  @CreationTimestamp
+  @Column(updatable = false)
+  private LocalDateTime timestamp;
 }
