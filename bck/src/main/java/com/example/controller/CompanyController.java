@@ -32,17 +32,17 @@ public class CompanyController {
     return companyService.getCompanyById(id);
   }
 
-  @PostMapping("/add")
+  @PostMapping
   public void addToCompanies(@RequestBody Company company){
     companyService.saveCompany(company);
   }
 
-  @PutMapping("/update")
+  @PutMapping
   public void updateCompanies(@RequestBody Company company){
     companyService.saveCompany(company);
   }
 
-  @DeleteMapping("/delete/{id}")
+  @DeleteMapping("/{id}")
   public void deleteCompaniesById(@PathVariable int id){
     companyService.deleteCompanyById(id);
   }

@@ -2,6 +2,7 @@ package com.example.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,9 +24,12 @@ public class SecurityConfig {
     return http
               .csrf(customizer -> customizer.disable())
               .authorizeHttpRequests(request -> request
-                  .requestMatchers("/companies/**").hasRole("ADMIN")
-                  .requestMatchers("/contact/**").hasAnyRole("ADMIN", "ACCOUNTANT", "INTERN")
-                  .anyRequest().authenticated())
+              .requestMatchers("/user/**").hasRole("ADMIN")
+              .requestMatchers(HttpMethod.POST, "/companies/**", "/invoice/**", "/contact/**").hasAnyRole("ADMIN", "ACCOUNTANT")
+              .requestMatchers(HttpMethod.PUT, "/companies/**", "/invoice/**", "/contact/**").hasAnyRole("ADMIN", "ACCOUNTANT")
+              .requestMatchers(HttpMethod.DELETE, "/companies/**", "/invoice/**", "/contact/**").hasAnyRole("ADMIN", "ACCOUNTANT")
+              .requestMatchers(HttpMethod.GET, "/companies/**", "/invoice/**", "/contact/**").hasAnyRole("ADMIN", "ACCOUNTANT", "INTERN")
+              .anyRequest().authenticated())
               //.formLogin(Customizer.withDefaults())
               .httpBasic(Customizer.withDefaults())
               .sessionManagement(session -> 
