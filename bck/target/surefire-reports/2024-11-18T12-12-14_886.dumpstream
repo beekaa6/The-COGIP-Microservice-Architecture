@@ -1,5 +1,0 @@
-# Created at 2024-11-18T12:12:15.086
-Boot Manifest-JAR contains absolute paths in classpath 'D:\verou6\The Mountain\6week\The-COGIP-Microservice-Architecture\bck\target\test-classes'
-Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
-'other' has different root
-
