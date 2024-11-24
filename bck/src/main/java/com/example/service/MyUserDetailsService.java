@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.model.User;
+import com.example.model.UserPrincipal;
 import com.example.repository.UserRepository;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,11 +22,13 @@ public class MyUserDetailsService implements UserDetailsService{
     User user = userRepository.findByUsername(username)
       .orElseThrow(()-> new UsernameNotFoundException("Not found user: "+username));
     
-    return org.springframework.security.core.userdetails.User.builder()
-          .username(user.getUsername())
-          .password(user.getPassword())
-          .roles(user.getRole().name())
-          .build();
+    // return org.springframework.security.core.userdetails.User.builder()
+    //       .username(user.getUsername())
+    //       .password(user.getPassword())
+    //       .roles(user.getRole().name())
+    //       .build();
+    
+    return new UserPrincipal(user);
   }
   
 }
