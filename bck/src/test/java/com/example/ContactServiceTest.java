@@ -32,7 +32,16 @@ public class ContactServiceTest {
   }
 
   @Test
-  public void testContacts(){
+  public void testContactsIfEmpty(){
+    when(contactRepository.findById(999)).thenReturn(Optional.empty());
+
+    Optional<Contact> result = contactService.getContactById(999);
+
+    assertFalse(result.isPresent());
+  }
+
+  @Test
+  public void testGetContacts(){
     Contact mockContact = new Contact();
     mockContact.setFirstName("beka");
     mockContact.setLastName("biceps");
@@ -49,9 +58,14 @@ public class ContactServiceTest {
     assertEquals("0487654321", result.get().getPhone());
     assertEquals("beka@beka.beka", result.get().getEmail());
   }
+  
+  @Test
+  public void testGetAllContact(){
+
+  }
 
   @Test
-  public void testContactsSaves(){
+  public void testSaveContacts(){
     Contact testIfSavingContact = new Contact();
     testIfSavingContact.setFirstName("save");
     testIfSavingContact.setLastName("testing");
@@ -64,13 +78,11 @@ public class ContactServiceTest {
 
     verify(contactRepository, times(1)).save(testIfSavingContact);
   }
-
+  
   @Test
-  public void testContactsIfEmpty(){
-    when(contactRepository.findById(999)).thenReturn(Optional.empty());
+  public void testDeleteContacts(){
+    contactService.deleteContactById(1);
 
-    Optional<Contact> result = contactService.getContactById(999);
-
-    assertFalse(result.isPresent());
+    verify(contactRepository, times(1)).deleteById(1);
   }
 }
