@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -46,5 +47,26 @@ public class CompanyServiceTest {
     assertEquals("nowhere", result.get().getCountry());
     assertEquals("123", result.get().getVat());
     assertEquals(CompanyType.CLIENT, result.get().getType());
+  }
+
+  @Test
+  public void testCompanySave(){
+    Company testingCompany = new Company();
+    testingCompany.setName("heh");
+    testingCompany.setCountry("hello");
+    testingCompany.setVat("0000");
+
+    when(companyRepository.save(testingCompany)).thenReturn(testingCompany);
+
+    companyService.saveCompany(testingCompany);
+  }
+
+  @Test
+  public void testCompanyIfEmpty(){
+    when(companyRepository.findById(999)).thenReturn(Optional.empty());
+
+    Optional<Company> emptyCompany = companyService.getCompanyById(999);
+
+    assertFalse(emptyCompany.isPresent());
   }
 }
