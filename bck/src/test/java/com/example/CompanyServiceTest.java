@@ -13,7 +13,7 @@ import org.mockito.MockitoAnnotations;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 public class CompanyServiceTest {
@@ -59,6 +59,9 @@ public class CompanyServiceTest {
     when(companyRepository.save(testingCompany)).thenReturn(testingCompany);
 
     companyService.saveCompany(testingCompany);
+
+    verify(companyRepository, times(1)).save(testingCompany);
+
   }
 
   @Test
