@@ -2,11 +2,13 @@ package com.example;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.example.model.Contact;
@@ -61,7 +63,26 @@ public class ContactServiceTest {
   
   @Test
   public void testGetAllContact(){
+    List<Contact> listContacts = List.of(
+      new Contact("firstName1", "lastName1", "phone1", "email1"),
+      new Contact("firstName2", "lastName2", "phone2", "email2")
+    );
 
+    when(contactRepository.findAll()).thenReturn(listContacts);
+
+    List<Contact> result = contactService.getContact();
+
+    assertNotNull(result);
+    assertEquals(2, result.size());
+    assertEquals("firstName1", result.get(0).getFirstName());
+    assertEquals("lastName1", result.get(0).getLastName());
+    assertEquals("phone1", result.get(0).getPhone());
+    assertEquals("email1", result.get(0).getEmail());
+
+    assertEquals("firstName2", result.get(1).getFirstName());
+    assertEquals("lastName2", result.get(1).getLastName());
+    assertEquals("phone2", result.get(1).getPhone());
+    assertEquals("email2", result.get(1).getEmail());
   }
 
   @Test
