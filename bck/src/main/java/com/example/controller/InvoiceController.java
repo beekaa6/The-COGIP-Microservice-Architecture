@@ -35,12 +35,12 @@ public class InvoiceController {
 
   @PostMapping
   public void addNew(@RequestBody Invoice invoice){
-    invoiceService.addNewInvoice(invoice);
+    invoiceService.saveInvoice(invoice);
   }
 
   @PutMapping
   public void updateNew(@RequestBody Invoice invoice){
-    invoiceService.updateNewInvoice(invoice);
+    invoiceService.saveInvoice(invoice);
   }
 
   @DeleteMapping("/{id}")

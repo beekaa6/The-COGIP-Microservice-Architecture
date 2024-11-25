@@ -10,11 +10,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
+@NoArgsConstructor
 @Entity
 public class Invoice {
+  public Invoice(String number) {
+    this.number = number;
+  }
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;

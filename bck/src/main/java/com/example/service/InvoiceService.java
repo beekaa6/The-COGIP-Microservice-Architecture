@@ -22,11 +22,7 @@ public class InvoiceService {
     return repo.findById(id);
   }
 
-  public void addNewInvoice(Invoice invoice){
-    repo.save(invoice);
-  }
-
-  public void updateNewInvoice(Invoice invoice){
+  public void saveInvoice(Invoice invoice){
     repo.save(invoice);
   }
 
