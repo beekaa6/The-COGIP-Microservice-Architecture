@@ -5,6 +5,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Base64;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -26,6 +27,8 @@ public class Requests {
     Object gsonObject = gson.fromJson(result, Object.class);
     System.out.println(gson.toJson(gsonObject));
   }
+
+  
 
   public void getList(String urlPath){
     try {
@@ -51,6 +54,35 @@ public class Requests {
     } catch (Exception e) {
       System.out.println("Error: "+e.getMessage());
       System.out.println("URL: " + url + urlPath);
+    }
+  }
+
+  public void addNewData(String urlPath, Map<String, String> dataList){
+    try {
+      Gson gson = new Gson();
+      String jsonDataList = gson.toJson(dataList);
+      
+      HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create(url + urlPath))
+        .header("Authorization", basicEncoding())
+        .header("Content-Type", "application/json")
+        .POST(HttpRequest.BodyPublishers.ofString(jsonDataList))
+        .build();
+
+      HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+      if (response.statusCode() != 200 && response.statusCode() != 201) {
+        System.out.println("Error: Received status code " + response.statusCode());
+      } else if (response.statusCode() == 403) {
+        System.out.println("Response Status: "+response.statusCode());
+        System.out.println("Access Denied: You do not have permission.");
+      } else {
+        System.out.println(urlPath.substring(0,1).toUpperCase() + urlPath.substring(1) + " successfully created");
+      }
+
+    } catch (Exception e) {
+      System.out.println("Error message: "+e.getMessage());
+      
     }
   }
 }
