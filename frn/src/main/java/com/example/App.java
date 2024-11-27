@@ -1,5 +1,7 @@
 package com.example;
 
+import java.util.List;
+
 public class App {
   public static void main(String[] args) {
     if (args.length == 0) {
@@ -20,12 +22,13 @@ public class App {
       System.out.println("Missing required arguments");
       System.out.println("Example: list company, or contact, or invoice");
     } else {
-      if (args[1].equals("company") || args[1].equals("contact") || args[1].equals("invoice") || args[1].equals("user")) {
+      String urlPath = args[1].toLowerCase();
+      if (List.of("company", "contact", "invoice", "user").contains(urlPath)) {
         Requests requests = new Requests();
-        requests.getList(args[1]);
+        requests.getList(urlPath);
       } else {
-        System.out.println("Unknown Arguments");
-        System.out.println("Example: list company, or contact, or invoice");
+        System.out.println("Unknown Argument: " + urlPath);
+        System.out.println("Available Options: company, contact, invoice, user");
       }
     }
   }
