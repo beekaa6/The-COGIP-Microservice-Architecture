@@ -16,8 +16,18 @@ public class App {
   }
 
   public static void list(String args[]){
-    Requests requests = new Requests();
-    requests.getList();
+    if (args.length < 2) {
+      System.out.println("Missing required arguments");
+      System.out.println("Example: list company, or contact, or invoice");
+    } else {
+      if (args[1].equals("company") || args[1].equals("contact") || args[1].equals("invoice") || args[1].equals("user")) {
+        Requests requests = new Requests();
+        requests.getList(args[1]);
+      } else {
+        System.out.println("Unknown Arguments");
+        System.out.println("Example: list company, or contact, or invoice");
+      }
+    }
   }
 
   public static void add(String args[]){

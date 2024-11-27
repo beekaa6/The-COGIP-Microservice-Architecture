@@ -6,10 +6,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class Requests {
-  private String url = "https://jsonplaceholder.typicode.com/posts/1";
+  private String url = "https://localhost:8080/";
   private HttpClient client = HttpClient.newHttpClient();
 
-  public void getList(){
+  public void getList(String urlPath){
     try {
       HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).GET().build();
 
