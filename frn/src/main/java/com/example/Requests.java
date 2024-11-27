@@ -36,14 +36,16 @@ public class Requests {
         .build();
 
       HttpResponse<String> response = this.client.send(request, HttpResponse.BodyHandlers.ofString());
-      
-      System.out.println("Response Status: "+response.statusCode());
-      if (response.statusCode() != 200) {
-        System.out.println("Error: Received status code " + response.statusCode());
-      } else {
+
+      //System.out.println(response.body());
+      if (response.statusCode() == 200) {
         System.out.println("Response Body: ");
-        //System.out.println(response.body());
         formatJson(response.body());
+      } else if (response.statusCode() == 403) {
+        System.out.println("Response Status: "+response.statusCode());
+        System.out.println("Access Denied: You do not have permission to view this page.");
+      } else {
+        System.out.println("Error: Received status code " + response.statusCode());
       }
     
     } catch (Exception e) {
