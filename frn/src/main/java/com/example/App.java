@@ -44,6 +44,8 @@ public class App {
       String urlPath = args[1].toLowerCase();
       if (urlPath.contains("company")) {
         addCompany(args, urlPath);
+      } else if (urlPath.contains("contact")) {
+        addContact(args, urlPath);
       } else {
         System.out.println("Missing required arguments");
         System.out.println("Available Options: company, contact, invoice, user");
@@ -76,7 +78,7 @@ public class App {
         type = args[i].substring("--type=".length());
       }
     }
-    
+
     if (name == null || country == null || vat == null || type == null) {
         System.out.println("Missing required subcommands and flags");
         System.out.println("Available Options: ");
@@ -84,8 +86,11 @@ public class App {
         System.out.print("--country=\"Belgium\" ");
         System.out.print("--vat=\"12345BE\" ");
         System.out.print("type=\"CLIENT\" ");
+    } else if (!List.of("CLIENT", "PROVIDER").contains(type.toUpperCase())) {
+      System.out.println("Invalid value for 'type': "+type);
+      System.out.println("Available Options: CLIENT, PROVIDER");
     } else {
-      Map<String, String> dataList = Map.of(
+      Map<String, Object> dataList = Map.of(
         "name", name,
         "country", country,
         "vat", vat,
@@ -94,5 +99,59 @@ public class App {
       Requests requests = new Requests();
       requests.addNewData(urlPath, dataList);
     }
+  }
+
+  public static void addContact(String[] args, String urlPath){
+    String firstName = null;
+    String lastName = null;
+    String phone = null;
+    String email = null;
+    String id = null;
+
+    for (int i = 2; i < args.length; i++) {
+      if (args[i].startsWith("--firstName=")) {
+        firstName = args[i].substring("--firstName=".length());
+      } else if (args[i].startsWith("--lastName=")) {
+        lastName = args[i].substring("--lastName=".length());
+      } else if (args[i].startsWith("--phone=")) {
+        phone = args[i].substring("--phone=".length());
+      } else if (args[i].startsWith("--email=")) {
+        email = args[i].substring("--email=".length());
+      } else if (args[i].startsWith("--contactCompany=")) {
+        id = args[i].substring("--contactCompany=".length());
+      }
+    }
+
+    if (firstName == null || lastName == null || phone == null || email == null || id == null) {
+        System.out.println("Missing required subcommands and flags");
+        System.out.println("Available Options: ");
+        System.out.print("   --firstName=\"Alex\" ");
+        System.out.print("--lastName=\"Mahone\" ");
+        System.out.print("--phone=\"0412345678\" ");
+        System.out.print("--email=\"alex@alex.alex\" ");
+        System.out.print("--contactCompany=\"1\" ");
+    } else {
+      Map<String, String> contactCompany = Map.of(
+        "id", id
+      );
+
+      Map<String, Object> dataList = Map.of(
+        "firstName", firstName,
+        "lastName", lastName,
+        "phone", phone,
+        "email", email,
+        "contactCompany", contactCompany
+      );
+      Requests requests = new Requests();
+      requests.addNewData(urlPath, dataList);
+    }
+  }
+
+  public static void addInvoice(String[] args, String urlPath){
+
+  }
+
+  public static void addUser(String[] args, String urlPath){
+
   }
 }

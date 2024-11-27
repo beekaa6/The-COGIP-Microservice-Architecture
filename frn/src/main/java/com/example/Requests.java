@@ -57,11 +57,13 @@ public class Requests {
     }
   }
 
-  public void addNewData(String urlPath, Map<String, String> dataList){
+  public void addNewData(String urlPath, Map<String, Object> dataList){
     try {
       Gson gson = new Gson();
       String jsonDataList = gson.toJson(dataList);
-      
+
+      System.out.println(dataList);
+
       HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create(url + urlPath))
         .header("Authorization", basicEncoding())
@@ -73,6 +75,9 @@ public class Requests {
 
       if (response.statusCode() != 200 && response.statusCode() != 201) {
         System.out.println("Error: Received status code " + response.statusCode());
+      } else if (response.statusCode() >= 400) {
+        System.out.println("Error: Received status code " + response.statusCode());
+        System.out.println("Response Body: " + response.body());
       } else if (response.statusCode() == 403) {
         System.out.println("Response Status: "+response.statusCode());
         System.out.println("Access Denied: You do not have permission.");
