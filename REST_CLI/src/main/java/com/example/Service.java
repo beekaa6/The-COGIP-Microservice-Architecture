@@ -4,11 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 public class Service {
-  public void delete(String args[]){
-    //to be added heh
-  }
-
-
   // ADD METHODS >>>>>>
   //Company
   public void addCompany(String[] args, String urlPath){
@@ -110,7 +105,7 @@ public class Service {
         System.out.println("Missing required subcommands and flags");
         System.out.println("Available Options: ");
         System.out.print("   --username=\"username\" ");
-        System.out.print("--password=\"--password\" ");
+        System.out.print("--password=\"password\" ");
         System.out.print("--role=\"ADMIN\" ");
     } else if (!List.of("ADMIN", "ACCOUNTANT", "INTERN").contains(role)) {
       System.out.println("Invalid value for 'role': "+role);

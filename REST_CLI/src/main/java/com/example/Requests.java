@@ -27,9 +27,12 @@ public class Requests {
     Object gsonObject = gson.fromJson(result, Object.class);
     System.out.println(gson.toJson(gsonObject));
   }
-
   
+  public String capString(String word){
+    return word.substring(0,1).toUpperCase() + word.substring(1);
+  }
 
+  //Requests
   public void getList(String urlPath){
     try {
       HttpRequest request = HttpRequest.newBuilder()
@@ -94,7 +97,29 @@ public class Requests {
     }
   }
 
-  public String capString(String word){
-    return word.substring(0,1).toUpperCase() + word.substring(1);
+  public void deleteDataById(String urlPath){
+    try {
+      HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create(url + urlPath))
+        .header("Authorization", basicEncoding())
+        .DELETE()
+        .build();
+      
+      HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+      if (response.statusCode() != 200 && response.statusCode() != 201) {
+        System.out.println("Error: Received status code " + response.statusCode());
+      } else if (response.statusCode() >= 400) {
+        System.out.println("Error: Received status code " + response.statusCode());
+        System.out.println("Response Body: " + response.body());
+      } else if (response.statusCode() == 403) {
+        System.out.println("Response Status: "+response.statusCode());
+        System.out.println("Access Denied: You do not have permission.");
+      } else {
+        System.out.println("Successfully deleted");
+      }
+    } catch (Exception e) {
+      System.out.println("Error message: "+e.getMessage());
+    }
   }
 }

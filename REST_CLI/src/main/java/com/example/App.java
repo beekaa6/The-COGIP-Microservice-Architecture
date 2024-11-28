@@ -13,7 +13,7 @@ public class App {
     } else if (args[0].equals("add")) {
       add(args, service);
     } else if (args[0].equals("delete")) {
-      service.delete(args);
+      delete(args, service);
     } else {
       System.out.println("Unknown command: "+args[0]);
     }
@@ -57,7 +57,30 @@ public class App {
     }
   }
 
-  public static void deleteData(){
-    
+  public static void delete(String args[], Service service){
+    if (args.length < 3) {
+      System.out.println("Missing required arguments");
+      System.out.println("Available Options: company, contact, invoice, user");
+      System.out.println("Example: delete contact id");
+    } else {
+      try {
+        String urlPath = args[1].toLowerCase();
+        if (!List.of("company", "contact", "invoice", "user").contains(urlPath)) {
+          System.out.println("Missing required arguments");
+          System.out.println("Available Options: company, contact, invoice, user");
+        }
+        else {
+          int id = Integer.parseInt(args[2]);
+          urlPath = urlPath + "/" + id;
+            
+          Requests requests = new Requests();
+          requests.deleteDataById(urlPath);
+        }
+          
+      } catch (Exception e) {
+        System.out.println("Invalid ID. It must be a numeric value.");
+        System.out.println("Error message: "+e.getMessage());
+      }
+    }
   }
 }
