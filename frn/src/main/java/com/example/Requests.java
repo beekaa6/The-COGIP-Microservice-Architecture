@@ -82,7 +82,9 @@ public class Requests {
       } else {
         System.out.println(capString(urlPath) + " successfully created");
         for (String string : dataList.keySet()) {
-          System.out.println(capString(string) + ": "+ dataList.get(string));
+          if (!string.contains("password")) {
+            System.out.println(capString(string) + ": "+ dataList.get(string));
+          }
         }
       }
 

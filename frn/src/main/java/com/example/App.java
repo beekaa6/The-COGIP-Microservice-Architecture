@@ -48,6 +48,8 @@ public class App {
         addContact(args, urlPath);
       } else if (urlPath.contains("invoice")) {
         addInvoice(args, urlPath);
+      } else if (urlPath.contains("user")) {
+        addUser(args, urlPath);
       } else {
         System.out.println("Missing required arguments");
         System.out.println("Available Options: company, contact, invoice, user");
