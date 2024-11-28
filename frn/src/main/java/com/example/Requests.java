@@ -62,8 +62,6 @@ public class Requests {
       Gson gson = new Gson();
       String jsonDataList = gson.toJson(dataList);
 
-      System.out.println(dataList);
-
       HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create(url + urlPath))
         .header("Authorization", basicEncoding())
@@ -82,12 +80,19 @@ public class Requests {
         System.out.println("Response Status: "+response.statusCode());
         System.out.println("Access Denied: You do not have permission.");
       } else {
-        System.out.println(urlPath.substring(0,1).toUpperCase() + urlPath.substring(1) + " successfully created");
+        System.out.println(capString(urlPath) + " successfully created");
+        for (String string : dataList.keySet()) {
+          System.out.println(capString(string) + ": "+ dataList.get(string));
+        }
       }
 
     } catch (Exception e) {
       System.out.println("Error message: "+e.getMessage());
       
     }
+  }
+
+  public String capString(String word){
+    return word.substring(0,1).toUpperCase() + word.substring(1);
   }
 }

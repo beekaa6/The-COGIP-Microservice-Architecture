@@ -54,30 +54,26 @@ public class App {
   }
 
   public static void delete(String args[]){
-    System.out.println(args[0]);
-    //tba
+    //to be added heh
   }
 
 
   // ADD METHODS >>>>>>
 
-  public static void addCompany(String[] args, String urlPath){
-    String name = null;
-    String country = null;
-    String vat = null;
-    String type = null;
-
-    for (int i = 2; i < args.length; i++) {
-      if (args[i].startsWith("--name=")) {
-        name = args[i].substring("--name=".length());
-      } else if (args[i].startsWith("--country=")) {
-        country = args[i].substring("--country=".length());
-      } else if (args[i].startsWith("--vat=")) {
-        vat = args[i].substring("--vat=".length());
-      } else if (args[i].startsWith("--type=")) {
-        type = args[i].substring("--type=".length());
+  public static String flagValue(String[] args, String flag) {
+    for (String argument : args) {
+      if (argument.startsWith(flag)) {
+        return argument.substring(flag.length());
       }
     }
+    return null;
+  }
+
+  public static void addCompany(String[] args, String urlPath){
+    String name = flagValue(args, "--name=");
+    String country = flagValue(args, "--country=");
+    String vat = flagValue(args, "--vat=");
+    String type = flagValue(args, "--type=");
 
     if (name == null || country == null || vat == null || type == null) {
         System.out.println("Missing required subcommands and flags");
@@ -102,25 +98,11 @@ public class App {
   }
 
   public static void addContact(String[] args, String urlPath){
-    String firstName = null;
-    String lastName = null;
-    String phone = null;
-    String email = null;
-    String id = null;
-
-    for (int i = 2; i < args.length; i++) {
-      if (args[i].startsWith("--firstName=")) {
-        firstName = args[i].substring("--firstName=".length());
-      } else if (args[i].startsWith("--lastName=")) {
-        lastName = args[i].substring("--lastName=".length());
-      } else if (args[i].startsWith("--phone=")) {
-        phone = args[i].substring("--phone=".length());
-      } else if (args[i].startsWith("--email=")) {
-        email = args[i].substring("--email=".length());
-      } else if (args[i].startsWith("--contactCompany=")) {
-        id = args[i].substring("--contactCompany=".length());
-      }
-    }
+    String firstName = flagValue(args, "--firstName=");
+    String lastName = flagValue(args, "--lastName=");
+    String phone = flagValue(args, "--phone=");
+    String email = flagValue(args, "--email=");
+    String id = flagValue(args, "--contactCompany=");
 
     if (firstName == null || lastName == null || phone == null || email == null || id == null) {
         System.out.println("Missing required subcommands and flags");
@@ -148,10 +130,10 @@ public class App {
   }
 
   public static void addInvoice(String[] args, String urlPath){
-
+    //to be added heh
   }
 
   public static void addUser(String[] args, String urlPath){
-
+    //to be added heh
   }
 }
