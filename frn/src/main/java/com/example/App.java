@@ -46,6 +46,8 @@ public class App {
         addCompany(args, urlPath);
       } else if (urlPath.contains("contact")) {
         addContact(args, urlPath);
+      } else if (urlPath.contains("invoice")) {
+        addInvoice(args, urlPath);
       } else {
         System.out.println("Missing required arguments");
         System.out.println("Available Options: company, contact, invoice, user");
@@ -69,6 +71,12 @@ public class App {
     return null;
   }
 
+  public static void sendData(String urlPath, Map<String, Object> dataList){
+    Requests requests = new Requests();
+    requests.addNewData(urlPath, dataList);
+  }
+
+  //Company
   public static void addCompany(String[] args, String urlPath){
     String name = flagValue(args, "--name=");
     String country = flagValue(args, "--country=");
@@ -92,11 +100,11 @@ public class App {
         "vat", vat,
         "type", type.toUpperCase()
       );
-      Requests requests = new Requests();
-      requests.addNewData(urlPath, dataList);
+      sendData(urlPath, dataList);
     }
   }
 
+  //Contact
   public static void addContact(String[] args, String urlPath){
     String firstName = flagValue(args, "--firstName=");
     String lastName = flagValue(args, "--lastName=");
@@ -124,16 +132,62 @@ public class App {
         "email", email,
         "contactCompany", contactCompany
       );
-      Requests requests = new Requests();
-      requests.addNewData(urlPath, dataList);
+      sendData(urlPath, dataList);
     }
   }
 
+  //Invoice
   public static void addInvoice(String[] args, String urlPath){
-    //to be added heh
+    String number = flagValue(args, "--number=");
+    String comId = flagValue(args, "--companyId=");
+    String conId = flagValue(args, "--contactId=");
+
+    if (comId == null || conId == null) {
+        System.out.println("Missing required subcommands and flags");
+        System.out.println("Available Options: ");
+        System.out.print("   --number=\"INV123\" ");
+        System.out.print("--companyId=\"1\" ");
+        System.out.print("--contactId=\"1\" ");
+    } else {
+      Map<String, String> companyId = Map.of(
+        "id", comId
+      );
+
+      Map<String, String> contactId = Map.of(
+        "id", conId
+      );
+
+      Map<String, Object> dataList = Map.of(
+        "number", number,
+        "companyId", companyId,
+        "contactId", contactId
+      );
+      sendData(urlPath, dataList);
+    }
   }
 
+  //User
   public static void addUser(String[] args, String urlPath){
-    //to be added heh
+    String username = flagValue(args, "--username=");
+    String password = flagValue(args, "--password=");
+    String role = flagValue(args, "--role=");
+
+    if (username == null || password == null || role == null) {
+        System.out.println("Missing required subcommands and flags");
+        System.out.println("Available Options: ");
+        System.out.print("   --username=\"username\" ");
+        System.out.print("--password=\"--password\" ");
+        System.out.print("--role=\"ADMIN\" ");
+    } else if (!List.of("ADMIN", "ACCOUNTANT", "INTERN").contains(role)) {
+      System.out.println("Invalid value for 'role': "+role);
+      System.out.println("Available Options: ADMIN, ACCOUNTANT, INTERN");
+    } else {
+      Map<String, Object> dataList = Map.of(
+        "username", username,
+        "password", password,
+        "role", role
+      );
+      sendData(urlPath, dataList);
+    }
   }
 }
