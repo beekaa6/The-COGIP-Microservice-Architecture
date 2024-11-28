@@ -5,29 +5,30 @@ import java.util.List;
 public class App {
   public static void main(String[] args) {
     Service service = new Service();
+    Requests requests = new Requests();
+    
     System.out.println();
     if (args.length == 0) {
       System.out.println("No arguments");
     } else if (args[0].equals("list")) {
-      list(args);
+      list(args, requests);
     } else if (args[0].equals("add")) {
       add(args, service);
     } else if (args[0].equals("delete")) {
-      delete(args, service);
+      delete(args, requests);
     } else {
       System.out.println("Unknown command: "+args[0]);
     }
     System.out.println();
   }
 
-  public static void list(String args[]){
+  public static void list(String args[], Requests requests){
     if (args.length != 2) {
       System.out.println("Missing required arguments");
       System.out.println("Available Options: company, contact, invoice, user");
     } else {
       String urlPath = args[1].toLowerCase();
       if (List.of("company", "contact", "invoice", "user").contains(urlPath)) {
-        Requests requests = new Requests();
         requests.getList(urlPath);
       } else {
         System.out.println("Unknown Argument: " + urlPath);
@@ -57,7 +58,7 @@ public class App {
     }
   }
 
-  public static void delete(String args[], Service service){
+  public static void delete(String args[], Requests requests){
     if (args.length < 3) {
       System.out.println("Missing required arguments");
       System.out.println("Available Options: company, contact, invoice, user");
@@ -72,8 +73,7 @@ public class App {
         else {
           int id = Integer.parseInt(args[2]);
           urlPath = urlPath + "/" + id;
-            
-          Requests requests = new Requests();
+          
           requests.deleteDataById(urlPath);
         }
           
