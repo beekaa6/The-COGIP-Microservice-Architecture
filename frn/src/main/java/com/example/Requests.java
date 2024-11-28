@@ -57,7 +57,7 @@ public class Requests {
     }
   }
 
-  public void addNewData(String urlPath, Map<String, Object> dataList){
+  public void saveData(String urlPath, Map<String, Object> dataList){
     try {
       Gson gson = new Gson();
       String jsonDataList = gson.toJson(dataList);
