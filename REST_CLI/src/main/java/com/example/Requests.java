@@ -14,8 +14,8 @@ public class Requests {
   private String url = "http://localhost:8080/";
   private HttpClient client = HttpClient.newHttpClient();
 
-  private String username = "beka";
-  private String password = "test";
+  private String username = "name"; // name from database for username
+  private String password = "pass"; // password from database for password
 
   public String basicEncoding(){
     String auth = username +":"+ password;
