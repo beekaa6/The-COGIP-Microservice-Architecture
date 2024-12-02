@@ -18,7 +18,7 @@ public class Service {
         System.out.print("   --name=\"MyCompany\" ");
         System.out.print("--country=\"Belgium\" ");
         System.out.print("--vat=\"12345BE\" ");
-        System.out.print("type=\"CLIENT\" ");
+        System.out.print("--type=\"CLIENT\" ");
     } else if (!List.of("CLIENT", "PROVIDER").contains(type.toUpperCase())) {
       System.out.println("Invalid value for 'type': "+type);
       System.out.println("Available Options: CLIENT, PROVIDER");
