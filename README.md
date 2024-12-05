@@ -4,8 +4,6 @@ Welcome to the COGIP Microservice Architecture Project, a Java based microservic
 * REST API for data management (BACK-END).
 * REST CLI (Command Line Interface) for user interaction (FRONT-END).
 
-Designed for accounting expert Jean Christian Ranu.
-
 ## Overview
 #### API
 * **CRUD Operations**: Fully supported for `company`, `contacts`, `invoices`, and `users`.
